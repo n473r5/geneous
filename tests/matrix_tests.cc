@@ -25,6 +25,16 @@ TEST(MatrixTests, ConstructorTest) {
 	Matrix<0, 0>;
 }
 
+TEST(MatrixTests, CastTests) {
+	Matrix<0, 0> a(Matrix<2, 2> {1, 2, 3, 4});
+	ASSERT_TRUE(a == (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
+
+	Matrix<2, 2> b(Matrix<0, 0>(2, 2, {1, 2, 3, 4}));
+	ASSERT_TRUE(b == (Matrix<2, 2> {1, 2, 3, 4}));
+
+	ASSERT_DEATH((Matrix<2, 2>(Matrix<0, 0>(3, 1, {1, 2, 3, 4}))), "");
+}
+
 TEST(MatrixTests, GetValueTest) {
 	Matrix<2, 2> a {1, 2, 3, 4};
 	ASSERT_EQ(a(1, 1), 1);
@@ -74,7 +84,7 @@ TEST(MatrixTests, AssignmentTest) {
 	ASSERT_TRUE(c == (Matrix<2, 2> {1, 2, 3, 4}));
 }
 
-TEST(MatrixTests, ArithmeticTest) {
+TEST(MatrixTests, BasicArithmeticTest) {
 	Matrix<2, 2> a = {1, 2, 3, 4};
 	Matrix<2, 2> b = {5, 6, 7, 8};
 	a += b;
@@ -84,10 +94,18 @@ TEST(MatrixTests, ArithmeticTest) {
 	a -= b;
 	ASSERT_TRUE(a == (Matrix<2, 2> {-4, -4, -4, -4}));
 
+	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) + (Matrix<2, 2> {1, 2, 3, 4}) == (Matrix<2, 2> {2, 4, 6, 8}));
+	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) - (Matrix<2, 2> {1, 2, 3, 4}) == (Matrix<2, 2> {0, 0, 0, 0}));
+
 	Matrix<2, 2> c {1, 2, 3, 4};
 	c *= 2;
 	ASSERT_TRUE(c == (Matrix<2, 2> {2, 4, 6, 8}));
+	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) * 2 == (Matrix<2, 2> {2, 4, 6, 8}));
 }
 
-TEST(MatrixTests, Test) {
+TEST(MatrixTests, MatrixMultiplicationTest) {
+	Matrix<2, 2> a {1, 2, 3, 4};
+	Matrix<2, 2> b {1, 0, 0, 1};
+
+	std::cout << a * b << std::endl;
 }

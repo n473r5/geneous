@@ -27,11 +27,13 @@ class Matrix {
 		// empty constructor
 		Matrix();
 
+		double get_row_count() const { return row_count; }
+		double get_column_count() const { return column_count; }
+
+		void set_to_zero();
+
 		// copy constructor
 		template<uint m_, uint n_> Matrix(const Matrix<m_, n_>&);
-
-		// cast
-		template<uint m_, uint n_> operator Matrix<m_,n_>() const;
 
 		std::pair<uint, uint> get_size() const;
 		void set_size(std::pair<uint, uint>);

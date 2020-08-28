@@ -37,15 +37,25 @@ Matrix<m, n>::Matrix() {
 }
 
 template<uint m, uint n>
-template<uint m_, uint n_>
-Matrix<m, n>::Matrix(const Matrix<m_, n_>& other) {
-	
+void Matrix<m, n>::set_to_zero() {
+	for(double& value : this->data) {
+		value = 0;
+	}
 }
 
 template<uint m, uint n>
 template<uint m_, uint n_>
-Matrix<m, n>::operator Matrix<m_, n_>() const {
-
+Matrix<m, n>::Matrix(const Matrix<m_, n_>& other) {
+	std::pair<uint, uint> other_size = other.get_size();
+	assert(m == 0 || m == other_size.first);
+	assert(n == 0 || n == other_size.second);
+	this->row_count = other_size.first;
+	this->column_count = other_size.second;
+	for(int i = 1; i <= other_size.first; i++) {
+		for(int j = 1; j <= other_size.first; j++) {
+			this->data.push_back(other(i, j));
+		}
+	}
 }
 
 template<uint m, uint n>
@@ -157,6 +167,11 @@ void Matrix<m, n>::operator*=(double scalar) {
 
 } // namespace Geneous
 
+template<uint m, uint n> 
+std::ostream& operator<<(std::ostream& stream, const Geneous::Matrix<m,n>& matrix) { 
+	return stream << (std::string) matrix << std::endl; 
+}
+
 template<uint m, uint n, uint m_, uint n_>
 Geneous::Matrix<m, n> operator+(const Geneous::Matrix<m, n>& left, const Geneous::Matrix<m_, n_>& right) {
 	Geneous::Matrix<m, n> sum(left);
@@ -180,6 +195,15 @@ Geneous::Matrix<m, n> operator*(const Geneous::Matrix<m, n>& matrix, double scal
 
 template<uint m, uint n, uint m_, uint n_>
 Geneous::Matrix<m, n> operator*(const Geneous::Matrix<m, n>& left, const Geneous::Matrix<m_, n_>& right) {
-	Geneous::Matrix<m, n> product(left);
+	assert(left.get_column_count() == right.get_column_count());
+	Geneous::Matrix<m, n> product;
+	product.set_to_zero();
+	for(int i = 1; i <= left.get_row_count(); i++) {
+		for(int j = 1; j <= right.get_column_count(); j++) {
+			for(int k = 1; k <= left.get_column_count(); k++) {
+				product(i, j) += left(i, k) * right(k, j);
+			}
+		}
+	}
 	return product;
 }
