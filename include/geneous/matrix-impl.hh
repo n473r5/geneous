@@ -23,6 +23,10 @@ Matrix<m, n>::Matrix(uint m_, uint n_, std::initializer_list<double> data) {
 template<uint m, uint n>
 Matrix<m, n>::Matrix(uint m_, uint n_) {
 	assert(this->is_dynamic_size);
+	assert(m_ != 0 && n_ != 0);
+	for(int i = 0; i < m_ * n_; i++) {
+		this->data.push_back(0);
+	}
 }
 
 template<uint m, uint n>
@@ -31,8 +35,6 @@ Matrix<m, n>::Matrix() {
 		for(int i = 0; i < m * n; i++) {
 			this->data.push_back(0);
 		}
-	} else {
-
 	}
 }
 
@@ -194,10 +196,12 @@ Geneous::Matrix<m, n> operator*(const Geneous::Matrix<m, n>& matrix, double scal
 }
 
 template<uint m, uint n, uint m_, uint n_>
-Geneous::Matrix<m, n> operator*(const Geneous::Matrix<m, n>& left, const Geneous::Matrix<m_, n_>& right) {
-	assert(left.get_column_count() == right.get_column_count());
-	Geneous::Matrix<m, n> product;
-	product.set_to_zero();
+Geneous::Matrix<m, n_> operator*(const Geneous::Matrix<m, n>& left, const Geneous::Matrix<m_, n_>& right) {
+	assert(left.get_column_count() == right.get_row_count());
+	Geneous::Matrix<m, n_> product;
+	if(m == 0 || n == 0) {
+		product.set_size(left.get_row_count(), right.get_column_count());
+	}
 	for(int i = 1; i <= left.get_row_count(); i++) {
 		for(int j = 1; j <= right.get_column_count(); j++) {
 			for(int k = 1; k <= left.get_column_count(); k++) {
@@ -205,5 +209,5 @@ Geneous::Matrix<m, n> operator*(const Geneous::Matrix<m, n>& left, const Geneous
 			}
 		}
 	}
-	return product;
+	return product; 
 }

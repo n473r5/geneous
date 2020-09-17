@@ -20,9 +20,9 @@ TEST(MatrixTests, ConstructorTest) {
 	ASSERT_DEATH((Matrix<0, 0>(2, 2, {1, 2, 3})), "");
 
 	// valid empty constructors
-	Matrix<0, 0>(2, 2);
-	Matrix<2, 2>;
-	Matrix<0, 0>;
+	Matrix<0, 0> a(2, 2);
+	Matrix<2, 2> b;
+	Matrix<0, 0> c;
 }
 
 TEST(MatrixTests, CastTests) {
@@ -104,8 +104,5 @@ TEST(MatrixTests, BasicArithmeticTest) {
 }
 
 TEST(MatrixTests, MatrixMultiplicationTest) {
-	Matrix<2, 2> a {1, 2, 3, 4};
-	Matrix<2, 2> b {1, 0, 0, 1};
-
-	std::cout << a * b << std::endl;
+	ASSERT_TRUE((Matrix<2, 2> {2, 0, 0, 2} * Matrix<2, 1> {1, 1}) == (Matrix<2, 1> {2, 2}));
 }
