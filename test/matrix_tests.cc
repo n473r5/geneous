@@ -9,15 +9,15 @@ TEST(MatrixTests, ConstructorTest) {
 	Matrix<2, 2> {1, 2, 3, 4};
 
 	// invalid: size does not match data size
-	ASSERT_DEATH((Matrix<1, 2> {1, 2, 3, 4}), "");
+	ASSERT_DEATH((Matrix<1, 2> {1, 2, 3, 4}), ".*");
 	// invalid: dynamic size for fixed size constructor
-	ASSERT_DEATH((Matrix<0, 0> {1, 2, 3, 4}), "");
+	ASSERT_DEATH((Matrix<0, 0> {1, 2, 3, 4}), ".*");
 
 	// valid dynamic size constructor
 	Matrix<0, 0>(2, 2, {1, 2, 3, 4});
 
 	// invalid: size arguments do not match data size
-	ASSERT_DEATH((Matrix<0, 0>(2, 2, {1, 2, 3})), "");
+	ASSERT_DEATH((Matrix<0, 0>(2, 2, {1, 2, 3})), ".*");
 
 	// valid empty constructors
 	Matrix<0, 0> a(2, 2);
@@ -32,7 +32,7 @@ TEST(MatrixTests, CastTests) {
 	Matrix<2, 2> b(Matrix<0, 0>(2, 2, {1, 2, 3, 4}));
 	ASSERT_TRUE(b == (Matrix<2, 2> {1, 2, 3, 4}));
 
-	ASSERT_DEATH((Matrix<2, 2>(Matrix<0, 0>(3, 1, {1, 2, 3, 4}))), "");
+	ASSERT_DEATH((Matrix<2, 2>(Matrix<0, 0>(3, 1, {1, 2, 3, 4}))), ".*");
 }
 
 TEST(MatrixTests, GetValueTest) {
@@ -41,18 +41,18 @@ TEST(MatrixTests, GetValueTest) {
 	ASSERT_EQ(a(1, 2), 2);
 	ASSERT_EQ(a(2, 1), 3);
 	ASSERT_EQ(a(2, 2), 4);
-	ASSERT_DEATH(a(0, 0), "");
-	ASSERT_DEATH(a(3, 1), "");
-	ASSERT_DEATH(a(1, 3), "");
+	ASSERT_DEATH(a(0, 0), ".*");
+	ASSERT_DEATH(a(3, 1), ".*");
+	ASSERT_DEATH(a(1, 3), ".*");
 	
 	Matrix<0, 0> b(2, 2, {1, 2, 3, 4});
 	ASSERT_EQ(b(1, 1), 1);
 	ASSERT_EQ(b(1, 2), 2);
 	ASSERT_EQ(b(2, 1), 3);
 	ASSERT_EQ(b(2, 2), 4);
-	ASSERT_DEATH(b(0, 0), "");
-	ASSERT_DEATH(b(3, 1), "");
-	ASSERT_DEATH(b(1, 3), "");
+	ASSERT_DEATH(b(0, 0), ".*");
+	ASSERT_DEATH(b(3, 1), ".*");
+	ASSERT_DEATH(b(1, 3), ".*");
 }
 
 TEST(MatrixTests, EqualityTest) {
@@ -71,12 +71,12 @@ TEST(MatrixTests, EqualityTest) {
 
 TEST(MatrixTests, AssignmentTest) {
 	Matrix<2, 2> a {1, 2, 3, 4};
-	ASSERT_DEATH((a = {1, 2}), "");
+	ASSERT_DEATH((a = {1, 2}), ".*");
 	a = {5, 6, 7, 8};
 	ASSERT_TRUE(a == (Matrix<2, 2> {5, 6, 7, 8}));
 
 	Matrix<0, 0> b(2, 2, {1, 2, 3, 4});
-	ASSERT_DEATH((b = {1, 2}), "");
+	ASSERT_DEATH((b = {1, 2}), ".*");
 	b = {5, 6, 7, 8};
 	ASSERT_TRUE(a == b);
 
