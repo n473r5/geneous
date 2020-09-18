@@ -20,6 +20,15 @@ ExternalProject_Add(
 include_directories(include/geneous)
 add_library(geneous src/geneous-all.cc)
 
+if(WIN32)
+	set(gtest_disable_pthreads ON)
+endif()
+
 add_executable(tests test/matrix_tests.cc test/vector_tests.cc)
 add_dependencies(tests googletest)
-target_link_libraries(tests gtest gtest_main pthread)
+
+if(WIN32)
+	target_link_libraries(tests gtest gtest_main)
+else()
+	target_link_libraries(tests gtest gtest_main pthread)
+endif()
