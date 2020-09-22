@@ -25,7 +25,7 @@ TEST(MatrixTests, ConstructorTest) {
 	Matrix<0, 0> c;
 }
 
-TEST(MatrixTests, CastTests) {
+TEST(MatrixTests, CastTest) {
 	Matrix<0, 0> a(Matrix<2, 2> {1, 2, 3, 4});
 	ASSERT_TRUE(a == (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
 
@@ -61,9 +61,18 @@ TEST(MatrixTests, EqualityTest) {
 
 	ASSERT_FALSE((Matrix<2, 2> {1, 2, 3, 4}) == (Matrix<2, 2> {5, 6, 7, 8}));
 	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) != (Matrix<2, 2> {5, 6, 7, 8}));
+
+	ASSERT_TRUE((Matrix<0, 0>(2, 2, {1, 2, 3, 4})) == (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
+	ASSERT_FALSE((Matrix<0, 0>(2, 2, {1, 2, 3, 4})) != (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
 	
+	ASSERT_FALSE((Matrix<0, 0>(2, 2, {1, 2, 3, 4})) == (Matrix<0, 0>(2, 2, {5, 6, 7, 8})));
+	ASSERT_TRUE((Matrix<0, 0>(2, 2, {1, 2, 3, 4})) != (Matrix<0, 0>(2, 2, {5, 6, 7, 8})));
+
 	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) == (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
 	ASSERT_FALSE((Matrix<2, 2> {1, 2, 3, 4}) != (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
+	
+	ASSERT_FALSE((Matrix<2, 2> {1, 2, 3, 4}) == (Matrix<0, 0>(2, 2, {5, 6, 7, 8})));
+	ASSERT_TRUE((Matrix<2, 2> {1, 2, 3, 4}) != (Matrix<0, 0>(2, 2, {5, 6, 7, 8})));
 	
 	ASSERT_FALSE((Matrix<2, 1> {1, 2}) == (Matrix<2, 2> {1, 2, 3, 4}));
 	ASSERT_TRUE((Matrix<2, 1> {1, 2}) != (Matrix<2, 2> {1, 2, 3, 4}));
