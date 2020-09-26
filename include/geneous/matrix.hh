@@ -12,6 +12,9 @@ typedef unsigned int uint;
 
 namespace Geneous {
 
+template<uint n>
+class Vector;
+
 template<uint m, uint n>
 class Matrix {
 	protected:
@@ -34,9 +37,11 @@ class Matrix {
 		double get_column_count() const { return column_count; }
 
 		void set_to_zero();
+		Matrix<n, m> get_transpose() const;
 
 		// copy constructor
 		template<uint m_, uint n_> Matrix(const Matrix<m_, n_>&);
+
 
 		std::pair<uint, uint> get_size() const;
 		void set_size(std::pair<uint, uint>);
@@ -62,6 +67,11 @@ class Matrix {
 		// void row_reduce();
 		// Matrix get_row_reduced() const;
 };
+
+typedef Matrix<2, 2> Matrix2;
+typedef Matrix<3, 3> Matrix3;
+typedef Matrix<4, 4> Matrix4;
+typedef Matrix<0, 0> DMatrix;
 
 } // namespace Geneous
 

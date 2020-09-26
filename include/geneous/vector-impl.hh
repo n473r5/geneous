@@ -1,13 +1,18 @@
 namespace Geneous {
 
 template<uint n>
+Vector<n>::Vector(std::initializer_list<double> data) : Matrix<n, 1>(data) {
+
+}
+
+template<uint n>
 double Vector<n>::operator()(uint i) const {
-	return (*this)(i, 1);
+	return ((Matrix<n, 1>) *this)(i, 1);
 }
 
 template<uint n>
 double& Vector<n>::operator()(uint i) {
-	return (*this)(i, 1);
+	return ((Matrix<n, 1>) *this)(i, 1);
 }
 
 } // namespace Geneous

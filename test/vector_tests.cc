@@ -1,4 +1,7 @@
 #include "gtest/gtest.h"
+#include "vector.hh"
+
+using namespace Geneous;
 
 #include "vector.hh"
 

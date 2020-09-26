@@ -32,3 +32,9 @@ if(WIN32)
 else()
 	target_link_libraries(tests gtest gtest_main pthread)
 endif()
+
+install(
+	TARGETS geneous
+	CONFIGURATIONS Debug
+	RUNTIME DESTINATION Debug/bin
+)
