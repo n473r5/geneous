@@ -46,6 +46,20 @@ void Matrix<m, n>::set_to_zero() {
 }
 
 template<uint m, uint n>
+Matrix<n, m> Matrix<m, n>::get_transpose() const {
+	Matrix<n, m> transpose;
+	if(m == 0 || n == 0) {
+		transpose.set_size(this->column_count, this->row_count);
+	}
+	for(uint i = 1; i <= this->row_count; i++) {
+		for(uint j = 1; j <= this->column_count; j++) {
+			transpose(j, i) = (*this)(i, j);
+		}
+	}
+	return transpose;
+}
+
+template<uint m, uint n>
 template<uint m_, uint n_>
 Matrix<m, n>::Matrix(const Matrix<m_, n_>& other) {
 	std::pair<uint, uint> other_size = other.get_size();
@@ -68,6 +82,12 @@ std::pair<uint, uint> Matrix<m, n>::get_size() const {
 template<uint m, uint n>
 void Matrix<m, n>::set_size(std::pair<uint, uint> size) {
 	assert(this->is_dynamic_size);
+	assert(this->data.size() == 0);
+	this->row_count = size.first;
+	this->column_count = size.second;
+	for(int i = 0; i < size.first * size.second; i++) {
+		this->data.push_back(0);
+	}
 }
 
 template<uint m, uint n>
