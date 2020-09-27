@@ -19,7 +19,7 @@ template<uint m, uint n>
 class Matrix {
 	protected:
 		const bool is_fixed_size = n != 0 && m != 0;
-		bool is_dynamic_size = !is_fixed_size;
+		const bool is_dynamic_size = !is_fixed_size;
 		uint row_count = m, column_count = n;
 		std::vector<double> data;
 	public:

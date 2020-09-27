@@ -8,7 +8,15 @@ namespace Geneous {
 template<uint n>
 class Vector : public Matrix<n, 1> {
 	public:
+		// fixed size constructor
 		Vector(std::initializer_list<double>);
+
+		// dynamic size constructors
+		Vector(uint, std::initializer_list<double>);
+		Vector(uint);
+		
+		// empty constructor
+		Vector();
 
 		double operator()(uint) const;
 		double& operator()(uint);
