@@ -1,40 +1,17 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(geneous)
+project(geneous CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include(ExternalProject)
-set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/third_party)
+set(THIRD_PARTY_DIR ${CMAKE_BINARY_DIR}/third_party)
+include_directories(${THIRD_PARTY_DIR}/include)
+link_directories(${THIRD_PARTY_DIR}/lib)
 
-include_directories(${EXTERNAL_INSTALL_LOCATION}/include)
-link_directories(${EXTERNAL_INSTALL_LOCATION}/lib)
-
-ExternalProject_Add(
-	googletest
-	GIT_REPOSITORY https://github.com/google/googletest
-	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-)
-
-include_directories(include/geneous)
 add_library(geneous src/geneous-all.cc)
+target_include_directories(geneous PUBLIC include/geneous)
 
-if(WIN32)
-	set(gtest_disable_pthreads ON)
+if(BUILD_TESTING)
+	add_subdirectory(test)
 endif()
-
-add_executable(tests test/matrix_tests.cc test/vector_tests.cc)
-add_dependencies(tests googletest)
-
-if(WIN32)
-	target_link_libraries(tests gtest gtest_main)
-else()
-	target_link_libraries(tests gtest gtest_main pthread)
-endif()
-
-install(
-	TARGETS geneous
-	CONFIGURATIONS Debug
-	RUNTIME DESTINATION Debug/bin
-)
