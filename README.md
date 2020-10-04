@@ -16,4 +16,4 @@ To build tests, append `-DBUILD_TESTING=ON` to the `cmake` command. An executabl
 Note: if building on Windows with MinGW Makefiles, append `-G "MinGW Makefiles"` to the `cmake` command.
 
 ## Documentation
-Geneous uses [Doxygen](https://doxygen.nl) for documentation. To build the documentation files, run `doxygen Doxyfile` in the root directory of this project. You can then open `html/index.html` in a web browser to view the output.
+Geneous uses [Doxygen](https://doxygen.nl) for documentation. To build the documentation files, run `doxygen Doxyfile` in the root directory of this project. The documentation files can be viewed in `build/html`.

@@ -21,7 +21,11 @@ TEST(MatrixTests, ConstructorTest) {
 
 	// valid empty constructors
 	Matrix<0, 0> a(2, 2);
+	ASSERT_TRUE(a == (Matrix<0, 0>(2, 2, {0, 0, 0, 0})));
+
 	Matrix<2, 2> b;
+	ASSERT_TRUE(b == (Matrix<2, 2> {0, 0, 0, 0}));
+
 	Matrix<0, 0> c;
 }
 
@@ -36,7 +40,7 @@ TEST(MatrixTests, GetTransposeTest) {
 	ASSERT_TRUE(c.get_transpose() == (Matrix<3, 2> {1, 4, 2, 5, 3, 6}));
 }
 
-TEST(MatrixTests, CastTest) {
+TEST(MatrixTests, CopyTest) {
 	Matrix<0, 0> a(Matrix<2, 2> {1, 2, 3, 4});
 	ASSERT_TRUE(a == (Matrix<0, 0>(2, 2, {1, 2, 3, 4})));
 
@@ -124,14 +128,19 @@ TEST(MatrixTests, BasicArithmeticTest) {
 }
 
 TEST(MatrixTests, MatrixMultiplicationTest) {
-	{
-		Matrix<2, 2> a {2, 0, 0, 2};
-		Matrix<2, 1> b {1, 1};
-		ASSERT_TRUE(a * b == (Matrix<2, 1> {2, 2}));
-	}
-	{
-		Matrix<0, 0> a(2, 2, {2, 0, 0, 2});
-		Matrix<2, 1> b {1, 1};
-		ASSERT_TRUE(a * b == (Matrix<0, 1>(2, 1, {2, 2})));
-	}
+	Matrix<2, 2> a {2, 0, 0, 2};
+	Matrix<2, 1> b {1, 1};
+	ASSERT_TRUE(a * b == (Matrix<2, 1> {2, 2}));
+	
+	Matrix<0, 0> c(2, 2, {2, 0, 0, 2});
+	Matrix<2, 1> d {1, 1};
+	ASSERT_TRUE(c * d == (Matrix<0, 1>(2, 1, {2, 2})));
+}
+
+TEST(MatrixTests, GetRowColumnTest) {
+	Matrix<2, 2> a {1, 2, 3, 4};
+	ASSERT_TRUE(a.get_row(1) == (Matrix<1, 2> {1, 2}));
+	ASSERT_TRUE(a.get_row(2) == (Matrix<1, 2> {3, 4}));
+	ASSERT_TRUE(a.get_column(1) == (Matrix<2, 1> {1, 3}));
+	ASSERT_TRUE(a.get_column(2) == (Matrix<2, 1> {2, 4}));
 }

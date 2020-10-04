@@ -3,7 +3,9 @@ include(ExternalProject)
 ExternalProject_Add(
 	googletest
 	GIT_REPOSITORY https://github.com/google/googletest
+	GIT_TAG release-1.10.0
 	CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${THIRD_PARTY_DIR}
+	UPDATE_COMMAND ""
 )
 
 add_executable(tests matrix_tests.cc vector_tests.cc)
