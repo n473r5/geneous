@@ -114,6 +114,16 @@ Matrix<m, 1> Matrix<m, n>::get_column(int j) const {
 }
 
 template<uint m, uint n>
+void Matrix<m, n>::add_row(Matrix<1, n> row) {
+
+}
+
+template<uint m, uint n>
+void Matrix<m, n>::add_column(Matrix<m, 1> column) {
+
+}
+
+template<uint m, uint n>
 void Matrix<m, n>::set_to_zero() {
 	for(double& value : this->data) {
 		value = 0;

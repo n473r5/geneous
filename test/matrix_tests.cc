@@ -144,3 +144,7 @@ TEST(MatrixTests, GetRowColumnTest) {
 	ASSERT_TRUE(a.get_column(1) == (Matrix<2, 1> {1, 3}));
 	ASSERT_TRUE(a.get_column(2) == (Matrix<2, 1> {2, 4}));
 }
+
+TEST(MatrixTests, AddRowColumnTest) {
+	Matrix<0, 0> a(2, 2, {1, 2, 3, 4});
+}

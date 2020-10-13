@@ -38,9 +38,9 @@ class Matrix {
 		Matrix<1, n> get_row(int) const;
 		Matrix<m, 1> get_column(int) const;
 
-		// add_row
-		// add_column
-
+		void add_row(Matrix<1, n>);
+		void add_column(Matrix<m, 1>);
+		
 		// get_submatrix
 		// get_identity
 	

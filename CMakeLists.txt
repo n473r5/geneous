@@ -12,6 +12,12 @@ link_directories(${THIRD_PARTY_DIR}/lib)
 add_library(geneous src/geneous-all.cc)
 target_include_directories(geneous PUBLIC include/geneous)
 
+if(BUILD_CLI)
+	add_executable(geneous-cli src/geneous-cli)
+	add_dependencies(geneous-cli geneous)
+	target_link_libraries(geneous-cli geneous)
+endif()
+
 if(BUILD_TESTING)
 	add_subdirectory(test)
 endif()
