@@ -1,5 +1,2 @@
-html/
-latex/
 build/
-.DS_Store
-*.swp
+.vscode/

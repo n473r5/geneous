@@ -1,23 +1,13 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(geneous CXX)
+project(geneous)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-set(THIRD_PARTY_DIR ${CMAKE_BINARY_DIR}/third_party)
+set(THIRD_PARTY_DIR ${CMAKE_CURRENT_BINARY_DIR}/third_party)
 include_directories(${THIRD_PARTY_DIR}/include)
 link_directories(${THIRD_PARTY_DIR}/lib)
 
-add_library(geneous src/geneous-all.cc)
-target_include_directories(geneous PUBLIC include/geneous)
+add_subdirectory(core)
 
 if(BUILD_CLI)
-	add_executable(geneous-cli src/geneous-cli)
-	add_dependencies(geneous-cli geneous)
-	target_link_libraries(geneous-cli geneous)
-endif()
-
-if(BUILD_TESTING)
-	add_subdirectory(test)
+	add_subdirectory(cli)
 endif()

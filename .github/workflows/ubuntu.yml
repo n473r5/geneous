@@ -3,7 +3,7 @@ name: ubuntu
 on: [push]
 
 env:
-  BUILD_TYPE: Debug
+  BUILD_TYPE: Release
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_CLI=ON -DBUILD_TESTS=ON
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
@@ -28,4 +28,4 @@ jobs:
     - name: Test
       working-directory: ${{runner.workspace}}/build
       shell: bash
-      run: make tests && ./tests
+      run: make tests && core/test/tests
